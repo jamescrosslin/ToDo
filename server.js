@@ -40,7 +40,7 @@ app.post('/addTask', (request, response) => {
 })
 
 app.delete('/deleteTask', (request, response) => {
-    db.collection('task').deleteOne({taskName: request.body.taskName})
+    db.collection('task').deleteOne({taskName: request.body.taskS})
     .then(result => {
         console.log('Task Deleted')
         response.json('Task Deleted')
