@@ -8,18 +8,18 @@
 </head>
 <body>
     <h1>To Do:</h1>
-    <ul class="listItems">
+    <ul class="tasks">
     <% for(let i = 0; i < info.length; i++) {%>
-        <li class="item">
-            <span><%= info[i].item %></span>
-            <span class="trash"></span>
+        <li class="task">
+            <span><%= info[i].taskName %></span>
+            <span class="fa fa-trash"></span>
         </li>
     <% } %>
     </ul>
 
-    <h2>Add Task</h2>
+    <h2>Add a Task</h2>
 
-    <form action="/addItem" method="POST">
+    <form action="/addTask" method="POST">
         <input type="text" placeholder="type something" name="task">
         <input type="submit">
     </form>

@@ -30,6 +30,23 @@ app.get('/', (request, response) => {
     .catch(error => console.error(error))
 })
 
+app.post('/addTask', (request, response) => {
+    db.collection('tasks').insertOne({taskName: request.body.task})
+    .then(result => {
+        console.log('Task Added To List')
+        response.redirect('/')
+    })
+    .catch(error => console.error(error))
+})
+
+app.delete('/deleteTask', (request, response) => {
+    db.collection('task').deleteOne({taskName: request.body.taskName})
+    .then(result => {
+        console.log('Task Deleted')
+        response.json('Task Deleted')
+    })
+    .catch(error => console.error(error))
+})
 
 app.listen(process.env.PORT || PORT, ()=>{
     console.log(`Server running on port ${PORT}`)
