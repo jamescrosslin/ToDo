@@ -39,6 +39,15 @@ app.post('/addTask', (request, response) => {
     .catch(error => console.error(error))
 })
 
+/* what I am starting to try based on the Zellwk tutorial:
+
+app.delete('/addTask', (request, response)) => {
+
+}
+*/
+
+// based on Leon's code, not working yet:
+
 app.delete('/deleteTask', (request, response) => {
     db.collection('task').deleteOne({taskName: request.body.taskS})
     .then(result => {
@@ -47,6 +56,7 @@ app.delete('/deleteTask', (request, response) => {
     })
     .catch(error => console.error(error))
 })
+
 
 app.listen(process.env.PORT || PORT, ()=>{
     console.log(`Server running on port ${PORT}`)
