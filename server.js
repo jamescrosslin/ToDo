@@ -23,12 +23,20 @@ app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
-app.get('/', (request, response) => {
-    db.collection('tasks').find().toArray()
+app.get('/',async (request, response) => {
+//          ^async is also new
+///////// THE NEW STUFF STARTS HERE /////////////    
+    const todoItems = await db.collection('tasks').find().toArray()
+    const itemsLeft = await db.collection('tasks').countDocuments({completed: false})
+    response.render('index.ejs', {info: todoItems, left: itemsLeft})
+
+////// LEON CHANGED THIS //////////////////////////   
+/*    db.collection('tasks').find().toArray()
         .then(data => {
             response.render('index.ejs', { info: data })
         })
         .catch(error => console.error(error))
+        */
 })
 
 app.post('/addTask', (request, response) => {
@@ -40,8 +48,9 @@ app.post('/addTask', (request, response) => {
         .catch(error => console.error(error))
 })
 
-
+// Famous last words, but this seems correct. 
 app.delete('/deleteTask', (request, response) => {
+//app.delete('/addTask', (request, response) => {
     db.collection('tasks').deleteOne({ taskName: request.body.task })
         .then(result => {
             console.log('Task Deleted')
