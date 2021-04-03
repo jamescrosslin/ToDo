@@ -1,17 +1,10 @@
-const deleteButton = document.querySelectorAll('#delete-button')
-
-/* This incomplete version of delete is based on the Zellwk tutorial. I did not finish writing it yet
-
-deleteButton.addEventListener('click', _=> {
-    fetch()
-})
-*/
-
-// This was my attempt at using Leon's code from rap-names-express. I Haven't been able to get it to work yet.
+const deleteButton = document.querySelectorAll('.delete-button')
 
 Array.from(deleteButton).forEach((element) => {
     element.addEventListener('click', deleteTask)
 })
+
+// ^^^ the above looks good
 
 async function deleteTask() {
     const tTask = this.parentNode.childNodes[1].innerText
@@ -21,7 +14,7 @@ async function deleteTask() {
             method: 'delete',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
-                'taskS' : tTask
+                taskName : tTask
             })
         })
         const data = await response.json()
