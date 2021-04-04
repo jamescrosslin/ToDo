@@ -6,8 +6,9 @@ Array.from(deleteButton).forEach((element) => {
     element.addEventListener('click', deleteTask)
 })
 
-async function deleteTask() {
-    const tTask = this.parentNode.childNodes[1].innerText
+async function deleteTask(event) {
+    const tTask = event.target.parentElement.previousElementSibling.innerText;
+    console.log(tTask)
 
     try {
         const response = await fetch('deleteTask', {
