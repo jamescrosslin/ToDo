@@ -53,3 +53,17 @@ async function deleteTask() {
     }
 }
 
+
+/*
+Since this file is now a dumping ground for old attempts, this bit was originally in server.js > app.get:
+
+// OLDER VERSION:  
+   db.collection('tasks').find().toArray()
+        .then(data => {
+            response.render('index.ejs', { info: data })
+        })
+        .catch(error => console.error(error))
+        
+
+*/
+
