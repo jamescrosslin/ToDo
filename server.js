@@ -23,30 +23,29 @@ app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
-app.get('/',async (request, response) => {
-//          ^async is also new
-// NEWER VERSION:   
+app.get('/',async (request, response) => {  
 
     const todoItems = await db.collection('tasks').find().toArray()
    // const itemsLeft = await db.collection('tasks').countDocuments({completed: false})
     response.render('index.ejs', {info: todoItems})
-
-// OLDER VERSION:  
-/*    db.collection('tasks').find().toArray()
-        .then(data => {
-            response.render('index.ejs', { info: data })
-        })
-        .catch(error => console.error(error))
-        */
 })
 
 app.post('/addTask', (request, response) => {
-    db.collection('tasks').insertOne({ taskName: request.body.task })
+    db.collection('tasks').insertOne({ taskName: request.body.task, completed: false })
         .then(result => {
             console.log('Task Added To List')
             response.redirect('/')
         })
         .catch(error => console.error(error))
+})
+
+app.put('/updateTask', (request, response) => {
+    db.collection('tasks').updateOne({ taskName: request.body.task }, { set: { completed: true } })
+    .then((result) => {
+        console.log('Task Marked Completed');
+        response.json('Task Marked Completed');
+    })
+    .catch(error => console.error(error))
 })
 
 app.delete('/deleteTask', (request, response) => {
