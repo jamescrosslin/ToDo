@@ -1,5 +1,4 @@
 console.log("hellooooooooo!");
-const { key } = require("./config.js");
 const express = require("express");
 const path = require("path");
 const app = express();
@@ -7,7 +6,7 @@ const MongoClient = require("mongodb").MongoClient;
 const PORT = 3000;
 
 let db,
-  dbConnectionStr = `mongodb+srv://James:${key}@cluster0.y0oqp.mongodb.net/test?retryWrites=true&w=majority`,
+  dbConnectionStr = `mongodb+srv://James:${process.env.DB_KEY}@cluster0.y0oqp.mongodb.net/test?retryWrites=true&w=majority`,
   dbName = "todo";
 
 MongoClient.connect(dbConnectionStr, {
